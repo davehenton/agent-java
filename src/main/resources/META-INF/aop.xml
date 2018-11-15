@@ -1,0 +1,8 @@
+<aspectj>
+    <aspects>
+        <aspect name="com.perf.test.aspect.httpclient.apache.HttpMethodExecuteAspect"/>        
+    </aspects>
+    <weaver>
+    	<include within="org.apache.http.impl.client.*"/>
+    </weaver>
+</aspectj>
