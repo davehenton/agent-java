@@ -33,7 +33,7 @@ import com.perf.test.thread.PerfMetricConsumerTask;
 
 /**
  * Starts a thread pool to be prepared to report metrics when metrics appear in a metric queue. Once
- * test execution finishes, all the metrics are taken the from the metric queue and reported
+ * test execution finishes, all the metrics are taken out of the metric queue and reported
  *
  * @author Aleh Struneuski
  */
