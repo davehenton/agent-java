@@ -28,6 +28,10 @@ import org.aeonbits.owner.Config;
  */
 public interface PerfTestProperties extends Config {
 
+  @Key("perf-test.exporter")
+  @DefaultValue("local")
+  String exporterType();
+
   @Key("perf-test.results.host")
   @DefaultValue("http://127.0.0.1:8095")
   String resultsHost();
@@ -35,10 +39,6 @@ public interface PerfTestProperties extends Config {
   @Key("perf-test.results.directory")
   @DefaultValue("perf-test-results")
   String resultsDirectory();
-
-  @Key("perf-test.exporter")
-  @DefaultValue("local")
-  String exporterType();
 
   @Key("perf-test.launch.date")
   String launchDate();
