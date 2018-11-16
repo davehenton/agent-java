@@ -19,6 +19,9 @@
 
 package com.perf.test.service;
 
+import java.util.Iterator;
+import java.util.ServiceLoader;
+import com.perf.test.service.impl.LocalMetricExporterServiceImpl;
 import com.perf.test.service.impl.RemoteMetricExporterServiceImpl;
 
 /**
@@ -28,7 +31,32 @@ import com.perf.test.service.impl.RemoteMetricExporterServiceImpl;
  */
 public class MetricExporterFactory {
 
-  public static MetricExporterService createExporter() {
-    return new RemoteMetricExporterServiceImpl();
+  public static MetricExporterService createExporter(MetricExporter metricEporter) {
+    switch (metricEporter) {
+      case LOCAL:
+        return new LocalMetricExporterServiceImpl();
+      case REMOTE:
+        return new RemoteMetricExporterServiceImpl();
+      case OPTED:
+        MetricExporterService optedMetricExporter = loadMetricExporterServiceImpl();
+        if (optedMetricExporter != null) {
+          return optedMetricExporter;
+        } else {
+          throw new RuntimeException(
+              "Specified implementation of MetricExporterService was not found!!!");
+        }
+      default:
+        return new LocalMetricExporterServiceImpl();
+    }
+  }
+
+  private static MetricExporterService loadMetricExporterServiceImpl() {
+    MetricExporterService opted = null;
+    ServiceLoader<MetricExporterService> loader = ServiceLoader.load(MetricExporterService.class);
+    Iterator<MetricExporterService> metricExporters = loader.iterator();
+    if (metricExporters.hasNext()) {
+      opted = metricExporters.next();
+    }
+    return opted;
   }
 }

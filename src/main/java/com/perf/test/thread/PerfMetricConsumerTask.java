@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 import com.perf.test.entity.domain.Perfomance;
 import com.perf.test.queue.MetricQueue;
 import com.perf.test.service.MetricExporterService;
-import com.perf.test.service.MetricExporterFactory;
 
 /**
  * Takes metrics out of the metric queue and report them based on the set exporter
@@ -37,9 +36,13 @@ public class PerfMetricConsumerTask implements Runnable {
   private static final int NUMBER_OF_METRICS = 40;
 
   private MetricQueue metricQueue;
+  private MetricExporterService metricExporterService;
 
-  public PerfMetricConsumerTask(MetricQueue metricQueue) {
+
+  public PerfMetricConsumerTask(MetricQueue metricQueue,
+      MetricExporterService metricExporterService) {
     this.metricQueue = metricQueue;
+    this.metricExporterService = metricExporterService;
   }
 
   public void run() {
@@ -50,8 +53,7 @@ public class PerfMetricConsumerTask implements Runnable {
         if (metrics == null || metrics.isEmpty()) {
           TimeUnit.MILLISECONDS.sleep(SEC_PAUSE);
         } else {
-          MetricExporterService exporter = MetricExporterFactory.createExporter();
-          exporter.export(metrics);
+          metricExporterService.export(metrics);
         }
       } catch (Exception e) {
         throw new RuntimeException(e);

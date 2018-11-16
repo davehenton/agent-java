@@ -36,6 +36,10 @@ public interface PerfTestProperties extends Config {
   @DefaultValue("perf-test-results")
   String resultsDirectory();
 
+  @Key("perf-test.exporter")
+  @DefaultValue("local")
+  String exporterType();
+
   @Key("perf-test.launch.date")
   String launchDate();
 
