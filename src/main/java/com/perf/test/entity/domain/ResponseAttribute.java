@@ -20,6 +20,7 @@
 package com.perf.test.entity.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Aleh Struneuski
@@ -61,5 +62,22 @@ public class ResponseAttribute {
 
   public void setHeaders(List<Header> headers) {
     this.headers = headers;
+  }
+
+  @Override
+  public boolean equals(final Object other) {
+    if (!(other instanceof ResponseAttribute)) {
+      return false;
+    }
+    ResponseAttribute castOther = (ResponseAttribute) other;
+    return Objects.equals(statusCode, castOther.statusCode)
+        && Objects.equals(reasonPhrase, castOther.reasonPhrase)
+        && Objects.equals(protocolVersion, castOther.protocolVersion)
+        && Objects.equals(headers, castOther.headers);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(statusCode, reasonPhrase, protocolVersion, headers);
   }
 }

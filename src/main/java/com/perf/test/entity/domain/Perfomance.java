@@ -19,6 +19,8 @@
 
 package com.perf.test.entity.domain;
 
+import java.util.Objects;
+
 /**
  * @author Aleh Struneuski
  */
@@ -50,5 +52,21 @@ public class Perfomance {
 
   public void setExecutionTimeInMillis(int executionTimeInMillis) {
     this.executionTimeInMillis = executionTimeInMillis;
+  }
+
+  @Override
+  public boolean equals(final Object other) {
+    if (!(other instanceof Perfomance)) {
+      return false;
+    }
+    Perfomance castOther = (Perfomance) other;
+    return Objects.equals(requestAttribute, castOther.requestAttribute)
+        && Objects.equals(responseAttribute, castOther.responseAttribute)
+        && Objects.equals(executionTimeInMillis, castOther.executionTimeInMillis);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(requestAttribute, responseAttribute, executionTimeInMillis);
   }
 }

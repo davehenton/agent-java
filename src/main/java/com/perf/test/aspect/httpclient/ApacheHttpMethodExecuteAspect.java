@@ -17,22 +17,22 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.perf.test.aspect.httpclient.apache;
+package com.perf.test.aspect.httpclient;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import com.perf.test.entity.domain.Header;
 import com.perf.test.entity.domain.Perfomance;
 import com.perf.test.entity.domain.RequestAttribute;
 import com.perf.test.entity.domain.ResponseAttribute;
@@ -45,7 +45,7 @@ import com.perf.test.queue.impl.PerfomanceMetricQueue;
  * @author Aleh Struneuski
  */
 @Aspect
-public class HttpMethodExecuteAspect {
+public class ApacheHttpMethodExecuteAspect extends HttpMethodExecuteAspect {
 
   @Pointcut("execution(* org.apache.http.impl.client.CloseableHttpClient.doExecute(..))")
   public void doExecute() {}
@@ -62,6 +62,10 @@ public class HttpMethodExecuteAspect {
     Duration between = Duration.between(start, end);
     long executionTime = between.toMillis();
 
+    if (!IS_ENABLED) {
+      return response;
+    }
+        
     Perfomance prefomance = new Perfomance();
     prefomance.setRequestAttribute(toRequestAttribute(targetHost, request));
     prefomance.setResponseAttribute(toResponseAttribute(response));
@@ -91,8 +95,8 @@ public class HttpMethodExecuteAspect {
     return requestAttribute;
   }
 
-  private List<Header> toHeaders(Header[] headers) {
-    return Arrays.stream(headers)
-        .collect(Collectors.toList(new Header(Header::getName, Header::getValue)));
+  private List<Header> toHeaders(NameValuePair[] headers) {
+    return Arrays.stream(headers).map(header -> new Header(header.getName(), header.getValue()))
+        .collect(Collectors.toList());
   }
 }

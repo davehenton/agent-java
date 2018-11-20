@@ -28,6 +28,10 @@ import org.aeonbits.owner.Config;
  */
 public interface PerfTestProperties extends Config {
 
+  @Key("perf-test.isEnabled")
+  @DefaultValue("false")
+  Boolean isEnabled();
+
   @Key("perf-test.exporter")
   @DefaultValue("local")
   String exporterType();
