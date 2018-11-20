@@ -17,36 +17,15 @@
  * not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.perf.test.property;
-
-import org.aeonbits.owner.Config;
+package com.perf.test.service;
 
 /**
- * Receives the required properties that are passed on to system properties while launching tests
- *
+ * Specifies types of existent metric exporter services
+ * 
  * @author Aleh Struneuski
  */
-public interface PerfTestProperties extends Config {
+public enum MetricExporter {
+  LOCAL, REMOTE, OPTED;
 
-  @Key("perf-test.isEnabled")
-  @DefaultValue("false")
-  Boolean isEnabled();
-
-  @Key("perf-test.exporter")
-  @DefaultValue("local")
-  String exporterType();
-
-  @Key("perf-test.results.host")
-  @DefaultValue("http://127.0.0.1:8095")
-  String resultsHost();
-
-  @Key("perf-test.results.directory")
-  @DefaultValue("perf-test-results")
-  String resultsDirectory();
-
-  @Key("perf-test.launch.date")
-  String launchDate();
-
-  @Key("perf-test.launch.id")
-  String launchId();
+  MetricExporter() {}
 }

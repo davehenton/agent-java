@@ -25,9 +25,11 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.testng.IExecutionListener;
+import com.perf.test.property.PropertyHolder;
 import com.perf.test.queue.MetricQueue;
 import com.perf.test.queue.impl.PerfomanceMetricQueue;
 import com.perf.test.service.MetricExporterService;
+import com.perf.test.service.MetricExporter;
 import com.perf.test.service.MetricExporterFactory;
 import com.perf.test.thread.PerfMetricConsumerTask;
 
@@ -41,6 +43,7 @@ public class TestNgExecutionListener implements IExecutionListener {
 
   private static final int THREAD_NUMBER = 5;
 
+  private static final MetricExporterService METRIC_EXPORTER_SERVICE = getMetricExporterService();
   private static final MetricQueue METRIC_QUEUE = PerfomanceMetricQueue.getInstance();
   private static final ExecutorService THREAD_POOL_EXE =
       Executors.newFixedThreadPool(THREAD_NUMBER);
@@ -55,13 +58,17 @@ public class TestNgExecutionListener implements IExecutionListener {
     System.setProperty("perf-test.launch.date", launchDate);
 
     for (int i = 0; i <= THREAD_NUMBER; i++) {
-      THREAD_POOL_EXE.execute(new PerfMetricConsumerTask(METRIC_QUEUE));
+      THREAD_POOL_EXE.execute(new PerfMetricConsumerTask(METRIC_QUEUE, METRIC_EXPORTER_SERVICE));
     }
   }
 
   @Override
   public void onExecutionFinish() {
-    MetricExporterService exporter = MetricExporterFactory.createExporter();
-    exporter.export(METRIC_QUEUE.pollAll());
+    METRIC_EXPORTER_SERVICE.export(METRIC_QUEUE.pollAll());
+  }
+
+  private static MetricExporterService getMetricExporterService() {
+    String exporterType = PropertyHolder.getPerfTestProperties().exporterType();
+    return MetricExporterFactory.createExporter(MetricExporter.valueOf(exporterType.toUpperCase()));
   }
 }
