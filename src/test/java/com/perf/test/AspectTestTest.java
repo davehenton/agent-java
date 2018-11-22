@@ -13,20 +13,11 @@ import org.testng.annotations.Test;
 public class AspectTestTest {
 
   @Test(groups = {"test", "perf"})
-  public void testMethodOne() throws ClientProtocolException, IOException {
+  public void invokeHttpMethod() throws ClientProtocolException, IOException {
     CloseableHttpClient httpclient = HttpClients.createDefault();
     HttpGet httpGet = new HttpGet("https://stackoverflow.com");
     CloseableHttpResponse response = httpclient.execute(httpGet);
     IOUtils.toString(response.getEntity().getContent(), Charset.defaultCharset());
-    System.out.println(response.getStatusLine().getStatusCode());
-  }
-
-  @Test(groups = {"test", "perf"})
-  public void testMethodTwo() throws ClientProtocolException, IOException {
-    CloseableHttpClient httpclient = HttpClients.createDefault();
-    HttpGet httpGet = new HttpGet("https://stackoverflow.com");
-    CloseableHttpResponse response = httpclient.execute(httpGet);
-    IOUtils.toString(response.getEntity().getContent(), Charset.defaultCharset());
-    System.out.println(response.getStatusLine().getStatusCode());
+    response.getStatusLine().getStatusCode();
   }
 }
