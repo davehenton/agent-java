@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -95,7 +94,7 @@ public class ApacheHttpMethodExecuteAspect extends HttpMethodExecuteAspect {
     return requestAttribute;
   }
 
-  private List<Header> toHeaders(NameValuePair[] headers) {
+  private List<Header> toHeaders(org.apache.http.Header[] headers) {
     return Arrays.stream(headers).map(header -> new Header(header.getName(), header.getValue()))
         .collect(Collectors.toList());
   }

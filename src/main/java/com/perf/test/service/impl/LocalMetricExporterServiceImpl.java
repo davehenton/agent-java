@@ -62,7 +62,7 @@ public class LocalMetricExporterServiceImpl implements MetricExporterService {
     for (PerfomanceMetric perfMetric : perfMetrics) {
       String resultFileName = String.format("%s-result.json", UUID.randomUUID().toString());
 
-      Path resultDir = Paths.get(jvmProps.buildDirectory(), perfTestProps.resultsDirectory());
+      Path resultDir = Paths.get(jvmProps.projectDirectory(), perfTestProps.resultsDirectory());
       try {
         Path createdResultDir = Files.createDirectories(resultDir);
         Path resultFile = createdResultDir.resolve(resultFileName);
