@@ -28,6 +28,6 @@ import org.aeonbits.owner.Config;
  */
 public interface JvmProperties extends Config {
 
-  @Key("project.build.directory")
-  String buildDirectory();
+  @Key("user.dir")
+  String projectDirectory();
 }
