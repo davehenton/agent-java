@@ -1,5 +1,5 @@
 # Continuous Perf Test agent
 
-[![Build Status](https://travis-ci.com/continuous-perf-test/agent-java.svg?branch=master)](https://travis-ci.com/continuous-perf-test/agent-java)
+[![Build Status](https://travis-ci.org/continuousperftest/agent-java.svg?branch=master)](https://travis-ci.org/continuousperftest/agent-java)
 
-This README file will have been filled out by the fifteenth of December.
+This README file will be updated soon.
