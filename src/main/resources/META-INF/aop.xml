@@ -1,6 +1,6 @@
 <aspectj>
     <aspects>
-        <aspect name="com.perf.test.aspect.httpclient.ApacheHttpMethodExecuteAspect"/>        
+        <aspect name="com.github.continuousperftest.aspect.httpclient.ApacheHttpMethodExecuteAspect"/>        
     </aspects>
     <weaver>
     	<include within="org.apache.http.impl.client.*"/>

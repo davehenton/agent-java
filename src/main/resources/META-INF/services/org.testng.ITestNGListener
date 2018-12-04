@@ -1,1 +1,1 @@
-com.perf.test.listener.TestNgExecutionListener
+com.github.continuousperftest.listener.TestNgExecutionListener
