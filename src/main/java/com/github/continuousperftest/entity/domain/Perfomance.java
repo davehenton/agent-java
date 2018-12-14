@@ -22,6 +22,8 @@ package com.github.continuousperftest.entity.domain;
 import java.util.Objects;
 
 /**
+ * Represents performance of HTTP call holding HTTP data of both request and response.
+ * 
  * @author Aleh Struneuski
  */
 public class Perfomance {

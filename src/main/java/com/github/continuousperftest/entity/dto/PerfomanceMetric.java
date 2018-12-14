@@ -23,6 +23,8 @@ import com.github.continuousperftest.entity.domain.Environment;
 import com.github.continuousperftest.entity.domain.Perfomance;
 
 /**
+ * Represents PerfomanceMetric object used for transferring performance metric to data collector.
+ * 
  * @author Aleh Struneuski
  */
 public class PerfomanceMetric {

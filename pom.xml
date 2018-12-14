@@ -50,8 +50,8 @@
 
 	<properties>
 		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
-		<maven-compiler-plugin.source.version>1.6</maven-compiler-plugin.source.version>
-		<maven-compiler-plugin.target.version>1.6</maven-compiler-plugin.target.version>
+		<maven-compiler-plugin.source.version>1.8</maven-compiler-plugin.source.version>
+		<maven-compiler-plugin.target.version>1.8</maven-compiler-plugin.target.version>
 		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
 		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
 		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
@@ -191,7 +191,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin>
+<!-- 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<version>${maven-gpg-plugin.version}</version>
@@ -204,7 +204,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>

@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Represents attributes of HTTP request.
+ * 
  * @author Aleh Struneuski
  */
 public class RequestAttribute {

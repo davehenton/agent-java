@@ -20,6 +20,8 @@
 package com.github.continuousperftest.entity.domain;
 
 /**
+ * Represents a header of HTTP request/response.
+ * 
  * @author Aleh Struneuski
  */
 public class Header {

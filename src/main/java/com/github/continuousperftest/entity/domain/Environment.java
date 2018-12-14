@@ -22,6 +22,8 @@ package com.github.continuousperftest.entity.domain;
 import java.util.Map;
 
 /**
+ * Represents properties of a launch.
+ * 
  * @author Aleh Struneuski
  */
 public class Environment {
