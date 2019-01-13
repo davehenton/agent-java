@@ -1,3 +1,29 @@
 language: java
 jdk:
- - oraclejdk8
+    - oraclejdk8
+
+before_install:
+    - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+    - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+
+install:
+    mvn clean install -DskipTests=true -B -V
+
+script: .travis/build.sh
+
+before_deploy:
+   - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+   - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
+
+deploy:
+    provider: releases
+    api_key: $GITHUB_OAUTH_TOKEN
+    file:
+        - target/agent-java-$project_version.jar
+        - target/agent-java-$project_version-javadoc.jar
+        - target/agent-java-$project_version-sources.jar
+    skip_cleanup: true
+    on:
+        branch: release
+        repo: continuousperftest/agent-java
+    name: $project_version
