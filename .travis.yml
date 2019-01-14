@@ -4,8 +4,8 @@ jdk:
 
 before_install:
     - echo $TRAVIS_BRANCH
-    - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import;
-    - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust;
+    - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+    - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 
 install:
     mvn clean install -DskipTests=true -B -V
